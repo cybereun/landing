@@ -53,15 +53,44 @@ const createWindow = () => {
 app.whenReady().then(createWindow);
 ```
 
-### 3) package.json에 빌드 스크립트 추가
-`package.json`에 아래 항목을 추가합니다.
+### 3) package.json에 빌드 설정 추가
+`package.json` 전체를 붙여넣는 방식이 아니라 **기존 내용에 항목만 추가**해야 합니다.  
+아래 예시는 `package.json` **안에 추가해야 하는 조각**입니다(바깥 `{}`는 중복 금지).
+
+```json
+"main": "main.js",
+"scripts": {
+  "start": "electron .",
+  "build": "electron-builder"
+},
+"build": {
+  "appId": "com.example.flipclock",
+  "productName": "FlipClock",
+  "files": [
+    "index.html",
+    "main.js"
+  ],
+  "win": {
+    "target": "nsis"
+  }
+}
+```
+
+#### 참고: package.json 예시(형태 참고용)
+아래는 **형태를 보여주기 위한 예시**입니다. 실제 파일에서는 `"name"`, `"version"`, `"devDependencies"`를 유지한 채 항목만 추가하세요.
 
 ```json
 {
+  "name": "landing",
+  "version": "1.0.0",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^29.0.0",
+    "electron-builder": "^24.0.0"
   },
   "build": {
     "appId": "com.example.flipclock",
